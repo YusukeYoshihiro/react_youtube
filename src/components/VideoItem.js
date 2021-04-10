@@ -1,15 +1,25 @@
-import React from 'react'
+import React from 'react';
+import '../Styles/VideoItem.css';
 
-const VideoItem = ({ video }) => {
-  console.log(video);
+// props.video = video as " Destructuring Assignment Shorthand "
+// 
+const VideoItem = ({ video, onVideoSelect }) => {
+  // console.log(video);
   return (
-    <div>
+    <div
+      onClick={()=> onVideoSelect(video)}
+      className="video_item item"
+    >
       <img
+        className="ui image"
         src={video.snippet.thumbnails.medium.url}
         alt={video.snippet.channelTitle}
-        key={video.id.videoId}
       />
-      {video.snippet.title}
+      <div className="content">
+        <div className="header">
+          {video.snippet.title}
+        </div>
+      </div>
     </div>
   )
 }

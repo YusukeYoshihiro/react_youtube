@@ -7,8 +7,10 @@ export default class SearchBar extends React.Component {
     this.setState({term: e.target.value});
   };
 
+  // Children onFormSubmit
   onFormSubmit = e =>{
     e.preventDefault();
+    // To props Parent(App.js)'s onFormSubmit
     this.props.onFormSubmit(this.state.term)
     // TODO: Make sure we call 
     // callback from parent component

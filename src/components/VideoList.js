@@ -1,13 +1,19 @@
 import React from 'react';
 import VideoItem from './VideoItem';
 
-
-const VideoList = ({videos}) => {
-  const renderedList = videos.map((video)=> {
-    return <VideoItem video={video}/>
+// props.videos = videos
+const VideoList = ({ videos, onVideoSelect }) => {
+  const renderedList = videos.map((video) => {
+    return (
+      <VideoItem
+        onVideoSelect={onVideoSelect}
+        video={video}
+        key={video.id.videoId}
+      />
+    )
   })
   return (
-    <div>
+    <div className="ui relaxed divided list">
       {renderedList}
     </div>
   )
