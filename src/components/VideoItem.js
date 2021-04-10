@@ -2,7 +2,6 @@ import React from 'react';
 import '../Styles/VideoItem.css';
 
 // props.video = video as " Destructuring Assignment Shorthand "
-// 
 const VideoItem = ({ video, onVideoSelect }) => {
   // console.log(video);
   return (
@@ -25,3 +24,4 @@ const VideoItem = ({ video, onVideoSelect }) => {
 }
 
 export default VideoItem
+
