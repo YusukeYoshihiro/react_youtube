@@ -10,6 +10,10 @@ export default class App extends React.Component {
     selectedVideo: null
   };
 
+  componentDidMount(){
+    this.onTermSubmit('Cats');
+  }
+
   // Api part
   onTermSubmit = async (term) => {
 
@@ -19,7 +23,10 @@ export default class App extends React.Component {
       }
     });
 
-    this.setState({ videos: res.data.items })
+    this.setState({ 
+      videos: res.data.items, 
+      selectedVideo: res.data.items[0]
+    })
   };
 
   onVideoSelect = (video) => {
@@ -29,13 +36,20 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="ui container">
-        {/* "onFormSubmit", "onVideoSelected", "videos" is props' name */}
+        {/* "onFormSubmit", "video", "onVideoSelected", "videos" are pops name */}
+        {/* "" */}
         <SearchBar onFormSubmit={this.onTermSubmit} />
-        <VideoDetail video={this.state.selectedVideo} />
-        <VideoList
-          onVideoSelected={this.onVideoSelect}
-          videos={this.state.videos}
-        />
+        <div className="ui grid">
+          <div className="ui row">
+           <div className="eleven wide column"> <VideoDetail video={this.state.selectedVideo} /></div>
+            <div className="five wide column">
+              <VideoList
+                onVideoSelect={this.onVideoSelect}
+                videos={this.state.videos}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
