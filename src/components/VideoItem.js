@@ -5,7 +5,10 @@ import '../Styles/VideoItem.css';
 const VideoItem = ({ video, onVideoSelect }) => {
   // console.log(video);
   return (
-    <div onClick={() => onVideoSelect(video)} className="video_item item">
+    <div 
+    　onClick={() => onVideoSelect(video)} 
+    　className="video_item item"
+    >
       <img
         className="ui image"
         src={video.snippet.thumbnails.medium.url}
