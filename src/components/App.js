@@ -3,6 +3,16 @@ import SearchBar from './SearchBar';
 import youtube from '../apis/youtube';
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
+import { Youtube as videoIcon } from '@styled-icons/boxicons-logos/Youtube';
+import styled from 'styled-components';
+
+
+const VideoIcon = styled(videoIcon)`
+   color: red;
+   width:40px;
+   margin-right:10px;
+`;
+
 
 export default class App extends React.Component {
   state = {
@@ -36,7 +46,13 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="ui container">
-        <h2 style={{ padding:'10px' }}>Search Your Favorite Video!!</h2>
+        
+        <div style={{display: 'flex', alignItems:'center',  padding:'10px'}} >
+          <VideoIcon/>
+          <h2 style={{marginTop: '0',}}>
+          Search Your Favorite Video!!
+          </h2>
+        </div >
         {/* "onFormSubmit", "video", "onVideoSelected", "videos" are pops name */}
         {/* "" */}
         <SearchBar onFormSubmit={this.onTermSubmit} />
