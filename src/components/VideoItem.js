@@ -14,7 +14,7 @@ const VideoItem = ({ video, onVideoSelect }) => {
         src={video.snippet.thumbnails.medium.url}
         alt={video.snippet.channelTitle}
       />
-      <div className="content">
+      <div className="content" style={{ marginTop: '10px'} }>
         <div className="header">
           {video.snippet.title}
         </div>

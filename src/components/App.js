@@ -36,12 +36,12 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="ui container">
-        <h2>Search Your Favorite Video!!</h2>
+        <h2 style={{ padding:'10px' }}>Search Your Favorite Video!!</h2>
         {/* "onFormSubmit", "video", "onVideoSelected", "videos" are pops name */}
         {/* "" */}
         <SearchBar onFormSubmit={this.onTermSubmit} />
         <div className="ui grid">
-          <div className="ui row">
+          <div className="ui row stackable">
            <div className="eleven wide column"> 
            　　<VideoDetail video={this.state.selectedVideo} />
            </div>
