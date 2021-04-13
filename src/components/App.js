@@ -11,7 +11,7 @@ export default class App extends React.Component {
   };
 
   componentDidMount(){
-    this.onTermSubmit('Cats');
+    this.onTermSubmit('Otani');
   }
 
   // Api part
