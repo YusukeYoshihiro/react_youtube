@@ -36,6 +36,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="ui container">
+        <h2>Search Your Favorite Video!!</h2>
         {/* "onFormSubmit", "video", "onVideoSelected", "videos" are pops name */}
         {/* "" */}
         <SearchBar onFormSubmit={this.onTermSubmit} />
