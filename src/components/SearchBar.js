@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import {SearchAlt} from '@styled-icons/boxicons-regular/SearchAlt'
 
+const SearchCtn = styled.div`
+  display: flex;
+`
 const Label = styled.label`
   border: 0 !important;
 	clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
@@ -14,6 +18,13 @@ const Label = styled.label`
 	width: 1px !important;
 	white-space: nowrap !important;            /* 3 */
 `
+
+const SearchIcon = styled(SearchAlt)`
+  color: #000;
+  width: 30px;
+  margin-right:10px;
+`
+
 
 export default class SearchBar extends React.Component {
   state = { term: "" };
@@ -35,8 +46,9 @@ export default class SearchBar extends React.Component {
     return (
       <div className="search-bar ui segment">
         <form onSubmit={this.onFormSubmit} className="ui form">
-          <div className="field">
+          <SearchCtn className="field">
             <Label>Search Bar</Label>
+            <SearchIcon/>
             <input
               type="text"
               value={this.state.term}
@@ -44,7 +56,7 @@ export default class SearchBar extends React.Component {
               onChange={this.onInputChange}
               placeholder="Search Video"
             />
-          </div>
+          </SearchCtn>
         </form>
       </div>
     )
