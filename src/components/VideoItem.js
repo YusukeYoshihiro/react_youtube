@@ -4,7 +4,19 @@ import moment from 'moment';
 
 // props.video = video as " Destructuring Assignment Shorthand "
 const VideoItem = ({ video, onVideoSelect }) => {
-  console.log(video);
+  const views = Number(video.statistics.viewCount);
+
+  const numFormatter = (num) => {
+    if (num > 999 && num < 1000000) {
+      return (num / 1000).toFixed(1) + 'K';
+    } else if (num > 1000000) {
+      return (num / 1000000).toFixed(1) + 'M';
+    } else if (num < 900) {
+      return num;
+    }
+  }
+
+  // console.log(video);
   const convertDate = moment(video.snippet.publishedAt).fromNow();
   return (
     <div 
@@ -16,7 +28,7 @@ const VideoItem = ({ video, onVideoSelect }) => {
         src={video.snippet.thumbnails.medium.url}
         alt={video.snippet.channelTitle}
       />
-      <p>{convertDate}</p>
+      <p>{numFormatter(views)} views • {convertDate}</p>
       <div className="content" style={{ marginTop: '10px'} }>
         <div className="header">
           {video.snippet.title}

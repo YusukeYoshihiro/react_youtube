@@ -14,12 +14,20 @@ const VideoIcon = styled(videoIcon)`
 `;
 
 
+const getVideoById = async (id) => {
+  // To refer video view count
+  return getViewCount.get(`/videos`, {
+    params: {
+      // To get default value of videoId from '/search' URL
+      id: id
+    }
+  });
+}
+
 export default class App extends React.Component {
   state = {
     videos: [],
-    selectedVideo: null,
-    selectedViewCount: null,
-    videoItemViewCount:{},
+    selectedVideo: null
   };
 
   componentDidMount(){
@@ -29,53 +37,41 @@ export default class App extends React.Component {
   // Api part
   onTermSubmit = async (term) => {
 
-    const SearchRes = await getSearchInfo.get('/search', {
+    const searchRes = await getSearchInfo.get('/search', {
       params: {
         q: term
       }
     });
 
-    const SearchResult = SearchRes.data.items
-   
-    // this is Function to refer viewCount 
-    const ViewCountRes = await getViewCount.get('/videos', {
-      params: {
-        // To get Default Value of videoId from 'SearchRes' 
-        id: SearchRes.data.items[0].id.videoId
-      }
-    });
-    
-    //  this is result of viewCount of Default
-    const ViewCountResult = ViewCountRes.data.items[0].statistics.viewCount
+    const searchResult = searchRes.data.items
+
+    const videos = await Promise.all(searchResult.map(async res => {
+      const videoId = res.id.videoId
+      const detail = await getVideoById(videoId)
+      const statistics = detail.data.items[0].statistics
+
+      return { ...res, statistics }
+    }))
+
+    // debugger
   
+
     this.setState({ 
       // SearchResult => SearchRes.data.items
-      videos: SearchResult, 
+      videos, 
       // SearchResult => SearchRes.data.items[0],
-      selectedVideo: SearchResult[0],
-
-      // selectedVideo:{
-      //   videoItemOne: SearchResult[0],
-      // },
+      selectedVideo: videos[0],
 
       // ViewCountResult => ViewCountRes.data.items[0].statistics.viewCount
-      selectedViewCount: ViewCountResult
+      // selectedViewCount: videos[0].statistics.viewCount
     })
   };
 
+  // To get viewCount
   onVideoSelect = async( video ) => {
     this.setState({ selectedVideo: video });
     
-    const ViewCountRes = await getViewCount.get('/videos', {
-      params: {
-        id: this.state.selectedVideo.id.videoId
-      }
-    });
-
-    this.setState({selectedViewCount: ViewCountRes.data.items[0].statistics.viewCount})
   }
-
-
 
   render() {
     return (
@@ -93,13 +89,14 @@ export default class App extends React.Component {
         <div className="ui grid">
           <div className="ui row stackable">
            <div className="eleven wide column"> 
-           　　<VideoDetail video={this.state.selectedVideo} viewCount={this.state.selectedViewCount}/>
+           　　<VideoDetail 
+               video={this.state.selectedVideo}
+               />
            </div>
             <div className="five wide column">
               <VideoList
                 onVideoSelect={this.onVideoSelect}
                 videos={this.state.videos}
-                viewCount={this.state.videoItemViewCount}
               />
             </div>
           </div>
